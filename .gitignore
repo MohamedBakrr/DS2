@@ -1,0 +1,25 @@
+# CMake build directories and generated files
+/cmake-build-*/
+**/cmake-build-*/
+/build/
+**/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+
+# IDE metadata
+.idea/
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
