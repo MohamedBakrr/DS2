@@ -7,7 +7,7 @@
 int main() {
     BinaryTree<int> tree;
 
-    int values[] = {10,15,5,20,12,9,2,17,30,3};
+    int values[] =  { 10, 20, 2, 3, 15, 60, 30, 1, 39 }; //{10,15,5,20,12,9,2,17,30,3};
     for (int v : values) {
         tree.insert(v);
     }

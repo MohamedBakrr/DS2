@@ -4,55 +4,63 @@
 
 #ifndef TASK_LINKED_QUEUE_H
 #define TASK_LINKED_QUEUE_H
+#include <stdexcept>
+
 template <typename T>
 struct QueueNode {
     T data;
     QueueNode<T>* next;
 
-    QueueNode(T value) : data(value), next(nullptr) {}
+    QueueNode(const T& value) : data(value), next(nullptr) {}
 };
 
 
 template <typename T>
 class LinkedQueue {
-    QueueNode<T>* front;
-    QueueNode<T>* rear;
+    QueueNode<T>* frontNode;
+    QueueNode<T>* rearNode;
     int count;
 
 public:
-    LinkedQueue() : front(nullptr), rear(nullptr), count(0) {}
+    LinkedQueue() : frontNode(nullptr), rearNode(nullptr), count(0) {}
     ~LinkedQueue() {
         while (!isEmpty()) {
             dequeue();
         }
     }
 
+    LinkedQueue(const LinkedQueue&) = delete;
+    LinkedQueue& operator=(const LinkedQueue&) = delete;
+
+
+
     void enqueue(T value) {
         QueueNode<T>* new_node = new QueueNode<T>(value);
-        if (rear == nullptr)
-            front = rear = new_node;
+        if (rearNode == nullptr)
+            frontNode = rearNode = new_node;
         else{
-            rear->next = new_node;
-            rear = new_node;
+            rearNode->next = new_node;
+            rearNode = new_node;
         }
         ++count;
     }
 
     void dequeue() {
         if (isEmpty()) return;
-        QueueNode<T>* temp = front;
-        front = front->next;
-        if (front == nullptr) rear = nullptr;
+        QueueNode<T>* temp = frontNode;
+        frontNode = frontNode->next;
+        if (frontNode == nullptr) rearNode = nullptr;
         delete temp;
         --count;
     }
 
     T peek () const {
-        return front->data;
+        if (isEmpty()) throw std::out_of_range("LinkedQueue::peek called on an empty queue");
+        return frontNode->data;
     }
 
     bool isEmpty() const {
-        return front == nullptr;
+        return frontNode == nullptr;
     }
 
     int size() const {
